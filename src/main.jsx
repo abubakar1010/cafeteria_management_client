@@ -8,7 +8,9 @@ import router from "./Routes/Routes";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
+      <div className=" container mx-auto">
       <RouterProvider router={router} />
+      </div>
     </ThemeProvider>
   </StrictMode>
 );

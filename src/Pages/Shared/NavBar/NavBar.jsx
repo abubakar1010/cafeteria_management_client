@@ -33,8 +33,8 @@ const NavBar = () => {
       <NavLink to={'/menu'}>
       Our Menu
       </NavLink>
-      <NavLink to={'/'}>
-      Our Shop
+      <NavLink to={'/order/salad'}>
+      Order Food
       </NavLink>
       <Profile />
     </ul>

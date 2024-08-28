@@ -3,6 +3,7 @@ import ChefRecommendation from "../../Components/ChefRecommendation/ChefRecommen
 import Featured from "../../Components/Featured/Featured";
 import Menu from "../../Components/Menu/Menu";
 import OrderCategory from "../../Components/OrderCategory/OrderCategory";
+import Testimonial from "../../Components/Testimonial/Testimonial";
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <Menu />
             <ChefRecommendation />
             <Featured />
+            <Testimonial />
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { Button } from "@material-tailwind/react";
 const Featured = () => {
   return (
     <>
-      <div className= " bg-fixed bg-[url('https://i.postimg.cc/d0PdTyLP/featured.jpg')] bg-cover bg-center h-full pt-12 bg-no-repeat relative rounded-xl !text-white " >
+      <div className= " bg-fixed bg-[url('https://i.postimg.cc/d0PdTyLP/featured.jpg')] bg-cover bg-center h-full pt-12 bg-no-repeat relative rounded-xl !text-white mb-28 " >
       <div className="absolute inset-0  pointer-events-none bg-[#1d1d1d70] rounded-xl"></div>
         <SectionTitle heading={"FROM OUR MENU"} subHeading={"Check it out"} />
         <div className=" cursor-pointer z-50 flex gap-28 justify-center items-center px-24 pb-16 ">

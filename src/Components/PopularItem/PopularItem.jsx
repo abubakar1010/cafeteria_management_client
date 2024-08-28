@@ -1,26 +1,20 @@
-import { useEffect, useState } from "react";
+
 import SectionTitle from "../SectionTitle/SectionTitle";
 import MenuItem from "../../Pages/Shared/MenuItem/MenuItem";
 import { Button } from "@material-tailwind/react";
+import useMenu from "../../Hooks/UseMenu/UseMenu";
 
-const Menu = () => {
-  const [menuInfo, setMenuInfo] = useState([]);
+const PopularItem = () => {
 
-  useEffect(() => {
-    fetch("menu.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const popularItem = data.filter( item => item.category === 'popular')
-        setMenuInfo(popularItem)})
-      .catch((error) => console.log(error));
-  }, []);
+        const [menu] = useMenu()
+        const popularItem = menu.filter( item => item.category === 'popular')
 
   return (
     <>
       <SectionTitle heading={'FROM OUR MENU'} subHeading={'Check it out'} />
       <div className=" grid grid-cols-2 gap-12 justify-center items-center">
         {
-            menuInfo.map( item => <MenuItem key={item._id} item={item} />)
+            popularItem.map( item => <MenuItem key={item._id} item={item} />)
         }
       </div>
       <div className=" text-center my-12">
@@ -31,4 +25,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default PopularItem;

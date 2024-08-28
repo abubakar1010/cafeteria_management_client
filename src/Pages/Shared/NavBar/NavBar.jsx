@@ -22,6 +22,9 @@ const NavBar = () => {
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <NavLink to={'/'}>
+      Home
+      </NavLink>
+      <NavLink to={'/'}>
       Contact Us
       </NavLink>
       <NavLink to={'/'}>
@@ -30,10 +33,10 @@ const NavBar = () => {
       <NavLink to={'/menu'}>
       Our Menu
       </NavLink>
-      <Profile />
       <NavLink to={'/'}>
       Our Shop
       </NavLink>
+      <Profile />
     </ul>
   );
   return (

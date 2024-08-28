@@ -14,7 +14,7 @@ const MenuItem = ({item}) => {
     const {image, price, name, recipe} = item;
     return (
         <>
-        <Card color="transparent" shadow={true} className="w-full ">
+        <Card color="transparent" shadow={true} className="w-full h-[200px] ">
         <CardHeader
           color="transparent"
           floated={false}

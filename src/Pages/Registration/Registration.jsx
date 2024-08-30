@@ -17,7 +17,7 @@ const Registration = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const {createUser} = useContext(AuthContext)
+  const {createUser, updateUser} = useContext(AuthContext)
 
   const {
     register,
@@ -26,17 +26,30 @@ const Registration = () => {
   } = useForm()
 
   const onSubmit = (data) => {
-    const {email, password}  = data;
+    const {email, password, name, imgURL}  = data;
     createUser(email, password)
     .then( () => {
 
-      Swal.fire({
-        title: "Register!",
-        text: "You are successfully Registered!",
-        icon: "success"
-      });
+      updateUser(name, imgURL)
+      .then( () => {
+        Swal.fire({
+          title: "Register!",
+          text: "You are successfully Registered!",
+          icon: "success"
+        });
+  
+        navigate( location?.state? location.state : '/')
+  
+      })
+      .catch( () => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Update Profile failed. Something went wrong! ",
+          footer: 'please try again'
+        });
+      })
 
-      navigate( location?.state? location.state : '/')
 
 
     })
@@ -103,6 +116,21 @@ const Registration = () => {
               }}
             />
              {errors.name && <span className=" text-lg text-red-600">Name is required</span>}
+
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Photo URL
+            </Typography>
+            <Input
+              size="lg"
+              name="imgURL"
+              {...register("imgURL", { required: true })}
+              placeholder="https://example.png"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+             {errors.imgURL && <span className=" text-lg text-red-600">Name is required</span>}
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Your Email
             </Typography>

@@ -13,14 +13,14 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
+import axios from "axios";
 
 const Testimonial = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch("reviews.json")
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
+    axios.get("http://localhost:5000/reviews")
+      .then((res) => setReviews(res.data));
   }, []);
   //   console.log(reviews);
 

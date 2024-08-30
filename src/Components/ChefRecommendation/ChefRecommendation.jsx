@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
 import PurchaseCard from "../PurchaseCard/PurchaseCard";
 import SectionTitle from "../SectionTitle/SectionTitle";
+import useMenu from "../../Hooks/UseMenu/UseMenu";
 
 const ChefRecommendation = () => {
 
-    const [menu, setMenu] = useState([]);
+    // const [menu, setMenu] = useState([]);
 
-    useEffect( () => {
-        fetch('menu.json')
-        .then( res => res.json())
-        .then ( data => setMenu(data.slice(0,3)))
-    },[])
+    const [menu] = useMenu()
 
     
 
-    console.log(menu);
+    // console.log(menu);
     
     return (
         <>
@@ -22,7 +18,7 @@ const ChefRecommendation = () => {
 
             <div className=" grid grid-cols-3 w-full justify-center items-center mb-24 gap-24 ">
                 {
-                    menu.map( item => <PurchaseCard key={item._id} item={item} />)
+                    menu.slice(0, 3).map( item => <PurchaseCard key={item._id} item={item} />)
                 }
                 
             </div>

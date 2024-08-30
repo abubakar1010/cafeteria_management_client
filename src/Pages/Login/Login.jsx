@@ -5,18 +5,20 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
 
   const captchaRef = useRef(null)
   const [isDisabled, setIsDisabled] = useState(true);
+  const {login} = useContext(AuthContext)
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -31,6 +33,16 @@ const Login = () => {
 
     const userInfo = { email, password };
     console.log(userInfo);
+    login(email, password)
+    .then( res => {
+      console.log(res.user);
+      
+    })
+    .catch( error => {
+      console.log(error);
+      
+    })
+
   };
 
   const handleCaptcha = () => {
@@ -45,12 +57,13 @@ const Login = () => {
 
   return (
     <>
-      <Card className="my-24" color="transparent" shadow={false}>
+      <div className=" my-8 flex justify-center items-center">
+      <Card className="" color="transparent" shadow={false}>
         <Typography variant="h4" color="blue-gray">
-          Sign Up
+          Log in
         </Typography>
         <Typography color="gray" className="mt-1 font-normal">
-          Nice to meet you! Enter your details to register.
+          Welcome Back! Enter your details to Login.
         </Typography>
         <form
           onSubmit={handleLogin}
@@ -125,13 +138,14 @@ const Login = () => {
             sign up
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
-            Already have an account?{" "}
+            {`Don't have an account?`}{" "}
             <Link to={"/register"} className="font-medium text-gray-900">
-              Sign In
+              Register
             </Link>
           </Typography>
         </form>
       </Card>
+      </div>
     </>
   );
 };

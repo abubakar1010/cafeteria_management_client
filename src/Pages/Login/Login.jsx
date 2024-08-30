@@ -13,6 +13,7 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
 
@@ -34,12 +35,22 @@ const Login = () => {
     const userInfo = { email, password };
     console.log(userInfo);
     login(email, password)
-    .then( res => {
-      console.log(res.user);
-      
+    .then( () => {
+
+      Swal.fire({
+        title: "Log in!",
+        text: "You are successfully Log in!",
+        icon: "success"
+      });
+
     })
-    .catch( error => {
-      console.log(error);
+    .catch(() => {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Log in failed. Something went wrong! ",
+        footer: 'please try again'
+      });
       
     })
 

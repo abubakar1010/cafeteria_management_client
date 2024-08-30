@@ -6,8 +6,34 @@ import {
     Avatar,
     Typography,
   } from "@material-tailwind/react";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Profile = () => {
+
+  const {logout} = useContext(AuthContext)
+  const handleLogout = () => {
+    logout()
+    .then( () => {
+
+      Swal.fire({
+        title: "Logged Out!",
+        text: "You are successfully Log out!",
+        icon: "success"
+      });
+
+    })
+    .catch(() => {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Log out failed. Something went wrong! ",
+        footer: 'please try again'
+      });
+      
+    })
+  }
     return (
         <>
             <Menu>
@@ -115,7 +141,7 @@ const Profile = () => {
                 fill="#90A4AE"
               />
             </svg>
-            <Typography variant="small" className="font-medium">
+            <Typography onClick={handleLogout} variant="small" className="font-medium">
               Sign Out
             </Typography>
           </MenuItem>

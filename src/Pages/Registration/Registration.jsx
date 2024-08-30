@@ -9,33 +9,65 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const Registration = () => {
 
-  const {register} = useContext(AuthContext)
+  const {createUser} = useContext(AuthContext)
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const form = e.target;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => {
+    const {email, password}  = data;
+    createUser(email, password)
+    .then( () => {
+
+      Swal.fire({
+        title: "Register!",
+        text: "You are successfully Registered!",
+        icon: "success"
+      });
+
+    })
+    .catch(() => {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Registration failed. Something went wrong! ",
+        footer: 'please try again'
+      });
+      
+    })
+  }
+  // const {register} = useContext(AuthContext)
+
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
 
     
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
+  //   const name = form.name.value;
+  //   const email = form.email.value;
+  //   const password = form.password.value;
 
-    const userInfo = { email, password, name };
-    console.log(userInfo);
-    register(email, password)
-    .then( res => {
-      console.log(res.user);
+  //   const userInfo = { email, password, name };
+  //   console.log(userInfo);
+  //   register(email, password)
+  //   .then( res => {
+  //     console.log(res.user);
       
-    })
-    .catch( error => {
-      console.log(error);
+  //   })
+  //   .catch( error => {
+  //     console.log(error);
       
-    })
+  //   })
 
-  };
+  // };
 
 
     return (
@@ -49,7 +81,7 @@ const Registration = () => {
         <Typography color="gray" className="mt-1 font-normal">
           Nice to meet you! Enter your details to register.
         </Typography>
-        <form onSubmit={handleRegister} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Your Name
@@ -57,37 +89,65 @@ const Registration = () => {
             <Input
               size="lg"
               name="name"
+              {...register("name", { required: true })}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
+             {errors.name && <span className=" text-lg text-red-600">Name is required</span>}
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Your Email
             </Typography>
             <Input
               size="lg"
               name="email"
+              {...register("email",  { required: true })}
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
             />
+            {errors.email && <span className=" text-lg text-red-600">Email is required</span>}
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Password
             </Typography>
             <Input
               type="password"
               name="password"
-              size="lg"
-              placeholder="********"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",
               }}
+              {...register("password",{
+                 required: true,
+                   minLength: 8,
+                    maxLength: 20, 
+                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*%?^])(?=.*[0-9])(?=.*[a-z])/
+                   })}
+              size="lg"
+              placeholder="********"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              // labelProps={{
+              //   className: "before:content-none after:content-none",
+              // }}
             />
+             {errors.password?.type === "required" && (
+        <p className=" text-lg text-red-600">Password is required</p>
+      )}
+             {errors.password?.type === "minLength" && (
+        <p className=" text-lg text-red-600">Password must required Minimum 8 character</p>
+      )}
+             {errors.password?.type === "maxLength" && (
+        <p className=" text-lg text-red-600">Password must be less than 10 character</p>
+      )}
+             {errors.password?.type === "pattern" && (
+        <p className=" text-lg text-red-600"> Password at least have one uppercase letter, one lowercase letter, one number and one special character</p>
+      )}
+
+
+
           </div>
           <Checkbox
             label={

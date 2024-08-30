@@ -36,13 +36,16 @@ const NavBar = () => {
       <NavLink to={'/order/salad'}>
       Order Food
       </NavLink>
+      <NavLink to={'/login'}>
+      Login
+      </NavLink>
       <Profile />
     </ul>
   );
   return (
     <>
-      <div className="fixed container mx-auto z-10 ">
-        <Navbar className=" shadow-none h-max max-w-full text-white bg-[rgba(21,21,21,0.50)] border-none rounded-none px-4 py-2 lg:px-8 ">
+      <div className=" container mx-auto  ">
+        <Navbar className="fixed max-h-[70px] z-10 h-full shadow-none text-white bg-[rgba(21,21,21,0.50)] border-none rounded-none px-4 py-2 lg:px-8 ">
           <div className="flex items-center justify-between ">
             <Typography
               as="a"

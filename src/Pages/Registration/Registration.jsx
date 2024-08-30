@@ -6,18 +6,42 @@ import {
     Button,
     Typography,
   } from "@material-tailwind/react";
-import { useRef } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Registration = () => {
 
-  const inputRef = useRef(null)
+  const {register} = useContext(AuthContext)
 
-  const handleRef = () => {
-    console.log(inputRef.current.value);
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+
     
-  }
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const userInfo = { email, password, name };
+    console.log(userInfo);
+    register(email, password)
+    .then( res => {
+      console.log(res.user);
+      
+    })
+    .catch( error => {
+      console.log(error);
+      
+    })
+
+  };
+
+
     return (
         <>
+            <div className=" my-12 flex justify-center items-center">
+
             <Card color="transparent" shadow={false}>
         <Typography variant="h4" color="blue-gray">
           Sign Up
@@ -25,14 +49,14 @@ const Registration = () => {
         <Typography color="gray" className="mt-1 font-normal">
           Nice to meet you! Enter your details to register.
         </Typography>
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form onSubmit={handleRegister} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Your Name
             </Typography>
             <Input
               size="lg"
-              ref={inputRef}
+              name="name"
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -44,6 +68,7 @@ const Registration = () => {
             </Typography>
             <Input
               size="lg"
+              name="email"
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
@@ -55,6 +80,7 @@ const Registration = () => {
             </Typography>
             <Input
               type="password"
+              name="password"
               size="lg"
               placeholder="********"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -81,17 +107,19 @@ const Registration = () => {
             }
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Button onClick={handleRef} className="mt-6" fullWidth>
+          <Button type="submit" className="mt-6" fullWidth>
             sign up
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
-            <a href="#" className="font-medium text-gray-900">
+            <Link to={"/login"} className="font-medium text-gray-900">
               Sign In
-            </a>
+            </Link>
           </Typography>
         </form>
       </Card>
+
+            </div>
         </>
     );
 };

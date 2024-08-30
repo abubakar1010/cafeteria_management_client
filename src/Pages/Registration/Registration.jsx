@@ -8,11 +8,14 @@ import {
   } from "@material-tailwind/react";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
 const Registration = () => {
+
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const {createUser} = useContext(AuthContext)
 
@@ -32,6 +35,9 @@ const Registration = () => {
         text: "You are successfully Registered!",
         icon: "success"
       });
+
+      navigate( location?.state? location.state : '/')
+
 
     })
     .catch(() => {

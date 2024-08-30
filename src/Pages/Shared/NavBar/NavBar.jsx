@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import {
   Navbar,
   Typography,
-  Button,
   IconButton,
   Collapse,
 } from "@material-tailwind/react";
@@ -39,7 +38,7 @@ const NavBar = () => {
       Order Food
       </NavLink>
       {
-        user? <Profile /> : <NavLink to={'/login'}>
+        user?.email ? <Profile /> : <NavLink to={'/login'}>
         Login
         </NavLink>
       }

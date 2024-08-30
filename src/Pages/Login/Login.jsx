@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -20,6 +20,8 @@ const Login = () => {
   const captchaRef = useRef(null)
   const [isDisabled, setIsDisabled] = useState(true);
   const {login} = useContext(AuthContext)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -42,6 +44,8 @@ const Login = () => {
         text: "You are successfully Log in!",
         icon: "success"
       });
+
+      navigate( location?.state? location.state : '/')
 
     })
     .catch(() => {

@@ -4,14 +4,18 @@ import {
   Typography,
   IconButton,
   Collapse,
+  Badge,
 } from "@material-tailwind/react";
 import Profile from "../../../Components/Profile/Profile";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import { FaCartShopping } from "react-icons/fa6";
+import useCart from "../../../Hooks/useCart/useCart";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
+  const [cart] = useCart()
 
   React.useEffect(() => {
     window.addEventListener(
@@ -21,29 +25,18 @@ const NavBar = () => {
   }, []);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <NavLink to={'/'}>
-      Home
+    <ul className="mt-2 mb-4 flex flex-col gap-2  lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+      <NavLink to={"/"}>Home</NavLink>
+      <NavLink to={"/"}>Contact Us</NavLink>
+      <NavLink to={"/"}>Dashboard</NavLink>
+      <NavLink to={"/menu"}>Our Menu</NavLink>
+      <NavLink to={"/order/salad"}>Order Food</NavLink>
+      <NavLink to={"/order/salad"}>
+        <Badge content={cart.length}>
+        <FaCartShopping className="h-6 w-6 "  />
+        </Badge>
       </NavLink>
-      <NavLink to={'/'}>
-      Contact Us
-      </NavLink>
-      <NavLink to={'/'}>
-      Dashboard
-      </NavLink>
-      <NavLink to={'/menu'}>
-      Our Menu
-      </NavLink>
-      <NavLink to={'/order/salad'}>
-      Order Food
-      </NavLink>
-      {
-        user?.email ? <Profile /> : <NavLink to={'/login'}>
-        Login
-        </NavLink>
-      }
-      
-      
+      {user?.email ? <Profile /> : <NavLink to={"/login"}>Login</NavLink>}
     </ul>
   );
   return (
@@ -99,9 +92,7 @@ const NavBar = () => {
               </IconButton>
             </div>
           </div>
-          <Collapse open={openNav}>
-            {navList}
-          </Collapse>
+          <Collapse open={openNav}>{navList}</Collapse>
         </Navbar>
       </div>
     </>

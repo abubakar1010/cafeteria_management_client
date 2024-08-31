@@ -7,8 +7,8 @@ import {
     ListItemPrefix,
   } from "@material-tailwind/react";
 import { TbBrandBooking } from "react-icons/tb";
-import { FaCalendarAlt, FaShoppingBasket } from "react-icons/fa";
-import { FaCcAmazonPay, FaEnvelope } from "react-icons/fa6";
+import { FaBook, FaCalendarAlt, FaShoppingBasket } from "react-icons/fa";
+import { FaCcAmazonPay, FaEnvelope, FaListUl, FaUsers, FaUtensils } from "react-icons/fa6";
 import { IoIosHome, IoMdCart } from "react-icons/io";
 import { MdOutlineMenuBook, MdOutlineRateReview } from "react-icons/md";
 import { NavLink } from "react-router-dom";
@@ -48,7 +48,48 @@ const DashboardDrawer = () => {
         <List>
 
           {
-            isAdmin? '' : <>
+            isAdmin? <>
+            <NavLink to={"/"}>
+          <ListItem>
+            <ListItemPrefix>
+            <IoIosHome className=" text-xl" />
+            </ListItemPrefix>
+            ADMIN HOME
+          </ListItem>
+          </NavLink>
+          <NavLink to={"/dashboard/addItems"}>
+          <ListItem>
+            <ListItemPrefix>
+            <FaUtensils className=" text-xl" />
+            </ListItemPrefix>
+            ADD ITEMS
+          </ListItem>
+          </NavLink>
+          <NavLink to={"/dashboard/manageItems"}>
+          <ListItem>
+            <ListItemPrefix>
+            <FaListUl className=" text-xl" />
+            </ListItemPrefix>
+            MANAGE ITEMS
+          </ListItem>
+          </NavLink>
+          <NavLink to={"/dashboard/manageBookings"}>
+          <ListItem>
+            <ListItemPrefix>
+            <FaBook className=" text-xl" />
+            </ListItemPrefix>
+            MANAGE BOOKINGS
+          </ListItem>
+          </NavLink>
+          <NavLink to={"/dashboard/allUser"}>
+          <ListItem>
+            <ListItemPrefix>
+            <FaUsers className=" text-xl" />
+            </ListItemPrefix>
+            ALL USER
+          </ListItem>
+          </NavLink>
+            </> : <>
             {/* user Dashboard routes start here */}
 
           <NavLink to={"/"}>

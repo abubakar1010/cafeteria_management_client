@@ -1,26 +1,23 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+
 import {
   Card,
   CardHeader,
-  Input,
   Typography,
   Button,
   CardBody,
-  Chip,
-  CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
   Avatar,
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
 import useCart from "../../Hooks/useCart/useCart";
+import { RiDeleteBin6Fill } from "react-icons/ri";
+import useAxiosSecure from "../../Hooks/useAxiosSecure/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Cart = () => {
 
-    const [cart] = useCart()
+    const [cart, refetch] = useCart()
+    const axiosSecure = useAxiosSecure()
 
     const totalAmount = cart.reduce( (totalPrice, item) => totalPrice + item.price,0)
     
@@ -28,53 +25,34 @@ const Cart = () => {
        
       const TABLE_HEAD = ["ITEM IMAGE", "ITEM NAME", "PRICE", "ACTION"];
        
-      const TABLE_ROWS = [
-        {
-          img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-          name: "John Michael",
-          email: "john@creative-tim.com",
-          job: "Manager",
-          org: "Organization",
-          online: true,
-          date: "23/04/18",
-        },
-        {
-          img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-          name: "Alexa Liras",
-          email: "alexa@creative-tim.com",
-          job: "Programator",
-          org: "Developer",
-          online: false,
-          date: "23/04/18",
-        },
-        {
-          img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-          name: "Laurent Perrier",
-          email: "laurent@creative-tim.com",
-          job: "Executive",
-          org: "Projects",
-          online: false,
-          date: "19/09/17",
-        },
-        {
-          img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-          name: "Michael Levi",
-          email: "michael@creative-tim.com",
-          job: "Programator",
-          org: "Developer",
-          online: true,
-          date: "24/12/08",
-        },
-        {
-          img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-          name: "Richard Gran",
-          email: "richard@creative-tim.com",
-          job: "Manager",
-          org: "Executive",
-          online: false,
-          date: "04/10/21",
-        },
-      ];
+      const handleDelete = (id) => {
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+            
+            axiosSecure.delete(`/carts/${id}`)
+            .then( res => {
+                if (res.data.deletedCount > 0) {
+                       Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                          });
+                          refetch()
+                }
+            })
+            
+            }
+      })
+    }
        
 
     return (
@@ -119,7 +97,7 @@ const Cart = () => {
           </thead>
           <tbody>
             {cart.map(
-              ({ image, name, price }, index) => {
+              ({ _id,image, name, price }, index) => {
                 const isLast = index === cart.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -153,9 +131,9 @@ const Cart = () => {
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Tooltip content="Edit User">
-                        <IconButton variant="text">
-                          <PencilIcon className="h-4 w-4" />
+                      <Tooltip content="Delete Item">
+                        <IconButton onClick={ () => handleDelete(_id)} variant="text">
+                          <RiDeleteBin6Fill className="!text-red-600 text-xl  " />
                         </IconButton>
                       </Tooltip>
                     </td>

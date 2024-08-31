@@ -81,7 +81,7 @@ const DashboardDrawer = () => {
             MANAGE BOOKINGS
           </ListItem>
           </NavLink>
-          <NavLink to={"/dashboard/allUser"}>
+          <NavLink to={"/dashboard/allUsers"}>
           <ListItem>
             <ListItemPrefix>
             <FaUsers className=" text-xl" />

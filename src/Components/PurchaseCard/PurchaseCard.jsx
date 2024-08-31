@@ -44,7 +44,7 @@ const PurchaseCard = ({ item }) => {
       });
     } else {
       
-      const cartInfo = {menuId: _id, name: name , price: price, email: user.email}
+      const cartInfo = {menuId: _id, name: name , price: price, email: user.email, image}
 
     axiosSecure.post('/carts', cartInfo ) 
     .then( (res) => {

@@ -31,7 +31,7 @@ const NavBar = () => {
       <NavLink to={"/"}>Dashboard</NavLink>
       <NavLink to={"/menu"}>Our Menu</NavLink>
       <NavLink to={"/order/salad"}>Order Food</NavLink>
-      <NavLink to={"/order/salad"}>
+      <NavLink to={"/dashboard/cart"}>
         <Badge content={cart.length}>
         <FaCartShopping className="h-6 w-6 "  />
         </Badge>

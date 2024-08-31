@@ -2,33 +2,28 @@ import {
     Drawer,
     Button,
     Typography,
-    IconButton,
     List,
     ListItem,
     ListItemPrefix,
-    ListItemSuffix,
-    Chip,
   } from "@material-tailwind/react";
-import { useState } from "react";
 import { TbBrandBooking } from "react-icons/tb";
-import { FaCalendarAlt } from "react-icons/fa";
-import { FaCcAmazonPay } from "react-icons/fa6";
+import { FaCalendarAlt, FaShoppingBasket } from "react-icons/fa";
+import { FaCcAmazonPay, FaEnvelope } from "react-icons/fa6";
 import { IoIosHome, IoMdCart } from "react-icons/io";
-import { MdOutlineRateReview } from "react-icons/md";
+import { MdOutlineMenuBook, MdOutlineRateReview } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 // import { TbBrandBooking } from "react-icons/tb";
 
 const DashboardDrawer = () => {
 
-    // const [open, setOpen] = useState(true);
-    // const openDrawer = () => setOpen(true);
-    // const closeDrawer = () => setOpen(false);
+
+  const isAdmin = true;
 
 
     return (
         <>
       {/* <Button onClick={openDrawer}>Open Drawer</Button> */}
-      <Drawer overlay={false} open={open} >
+      <Drawer overlay={false} open={true} >
         <div className="mb-2 flex items-center justify-between p-4">
           <Typography variant="h5" color="blue-gray">
             Material Tailwind
@@ -51,12 +46,17 @@ const DashboardDrawer = () => {
           </IconButton> */}
         </div>
         <List>
+
+          {
+            isAdmin? '' : <>
+            {/* user Dashboard routes start here */}
+
           <NavLink to={"/"}>
           <ListItem>
             <ListItemPrefix>
             <IoIosHome className=" text-xl" />
             </ListItemPrefix>
-            Home
+            USER HOME
           </ListItem>
           </NavLink>
           <NavLink to={"/dashboard/reservation"}>
@@ -99,6 +99,44 @@ const DashboardDrawer = () => {
             MY BOOKING
           </ListItem>
           </NavLink>
+
+          {/* user Dashboard routes  end here */}
+            </>
+          }
+
+          <p className=" border-t-2 border-gray-700 w-[200px] my-4 "></p>
+
+          {/* common routes starts here */}
+
+        <NavLink to={"/"}>
+        <ListItem>
+            <ListItemPrefix>
+            <IoIosHome className=" text-xl" />
+            </ListItemPrefix>
+            HOME
+          </ListItem>
+        </NavLink>
+      <NavLink to={"/"}><ListItem>
+            <ListItemPrefix>
+            <FaEnvelope className=" text-xl" />
+            </ListItemPrefix>
+            CONTACT US
+          </ListItem></NavLink>
+      <NavLink to={"/menu"}><ListItem>
+            <ListItemPrefix>
+            <MdOutlineMenuBook className=" text-xl" />
+            </ListItemPrefix>
+            OUR MENU
+          </ListItem></NavLink>
+      <NavLink to={"/order/salad"}><ListItem>
+            <ListItemPrefix>
+            <FaShoppingBasket className=" text-xl" />
+            </ListItemPrefix>
+            ORDER FOOD
+          </ListItem></NavLink>
+
+          {/* common routes ed here */}
+
           
         </List>
         <Button className="mt-3 ml-5" size="sm">

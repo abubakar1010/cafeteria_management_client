@@ -49,13 +49,13 @@ const Login = () => {
 
     })
     .catch(() => {
+      setIsDisabled(true)
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Log in failed. Something went wrong! ",
         footer: 'please try again'
       });
-      
     })
 
   };

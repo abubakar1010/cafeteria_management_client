@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       children:[
         {
           path: 'cart',
-          element: <Cart />
+          element: <PrivateRoute><Cart /></PrivateRoute>
         }
       ]
     }

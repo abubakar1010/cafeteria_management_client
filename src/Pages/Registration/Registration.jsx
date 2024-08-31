@@ -11,11 +11,14 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
+import GoogleLogin from "../../Components/SocialLoign/GoogleLogin";
 
 const Registration = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
+  const axiosPublic = useAxiosPublic()
 
   const {createUser, updateUser} = useContext(AuthContext)
 
@@ -32,14 +35,22 @@ const Registration = () => {
 
       updateUser(name, imgURL)
       .then( () => {
-        Swal.fire({
-          title: "Register!",
-          text: "You are successfully Registered!",
-          icon: "success"
-        });
-  
-        navigate( location?.state? location.state : '/')
-  
+
+        const userInfo = {name, email }
+
+        axiosPublic.post('/users',userInfo)
+        .then( () => {
+
+            Swal.fire({
+              title: "Register!",
+              text: "You are successfully Registered!",
+              icon: "success"
+            });
+      
+            navigate( location?.state? location.state : '/')
+          
+        })
+
       })
       .catch( () => {
         Swal.fire({
@@ -211,6 +222,7 @@ const Registration = () => {
             </Link>
           </Typography>
         </form>
+        <GoogleLogin />
       </Card>
 
             </div>

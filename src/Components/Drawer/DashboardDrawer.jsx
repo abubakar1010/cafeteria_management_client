@@ -12,12 +12,13 @@ import { FaCcAmazonPay, FaEnvelope, FaListUl, FaUsers, FaUtensils } from "react-
 import { IoIosHome, IoMdCart } from "react-icons/io";
 import { MdOutlineMenuBook, MdOutlineRateReview } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import useAdmin from "../../Hooks/useAdmin/useAdmin";
 // import { TbBrandBooking } from "react-icons/tb";
 
 const DashboardDrawer = () => {
 
 
-  const isAdmin = true;
+  const [isAdmin] = useAdmin()
 
 
     return (

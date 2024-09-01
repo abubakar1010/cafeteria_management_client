@@ -41,9 +41,9 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-        console.log(currentUser)
+        // console.log(currentUser)
       setUser(currentUser);
-
+      setIsLoading(false);
       if(currentUser){
         //set jwt in client
         const userInfo = {email: currentUser.email}
@@ -58,7 +58,6 @@ const AuthProvider = ({ children }) => {
         //remove token from client
         localStorage.removeItem("access-token")
       }
-      setIsLoading(false);
     });
 
     return () => {

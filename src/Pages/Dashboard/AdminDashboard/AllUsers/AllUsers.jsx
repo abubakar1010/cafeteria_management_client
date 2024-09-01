@@ -83,6 +83,7 @@ const AllUsers = () => {
 
   return (
     <>
+    
       <div className=" w-full text-center my-12 space-y-8">
         <h1 className=" text-xl font-medium">Total Users: {users.length}</h1>
 

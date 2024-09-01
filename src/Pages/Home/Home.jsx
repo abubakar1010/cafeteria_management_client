@@ -7,6 +7,8 @@ import PopularItem from "../../Components/PopularItem/PopularItem";
 import Testimonial from "../../Components/Testimonial/Testimonial";
 
 const Home = () => {
+    console.log(import.meta.env.VITE_IMAGE_HOISTING_KEY);
+    
     return (
         <div>
             <Banner />

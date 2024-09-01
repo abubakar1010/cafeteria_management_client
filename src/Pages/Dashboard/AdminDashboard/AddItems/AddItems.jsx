@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic/useAxiosPublic";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
+import Swal from "sweetalert2";
 
   const image_hoisting_key =  import.meta.env.VITE_IMAGE_HOISTING_KEY
   const image_upload_api = `https://api.imgbb.com/1/upload?key=${image_hoisting_key}`
@@ -16,25 +18,83 @@ import useAxiosPublic from "../../../../Hooks/useAxiosPublic/useAxiosPublic";
 const AddItems = () => {
 
   const axiosPublic = useAxiosPublic()
+  const axiosSecure = useAxiosSecure()
 
   const {
     register,
     handleSubmit,
+    reset
     // formState: { errors },
   } = useForm();
 
   const onSubmit = async(data) => {
-    console.log(data)
+    const itemInfo = data;
+    console.log(itemInfo)
 
-    const imgFile = {image: data.image[0]}
+    const imgFile = {image: itemInfo.image[0]}
 
     const result = await axiosPublic.post(image_upload_api, imgFile, {
       headers: {
-        "content-Type": "multipart/form-data"
+        'content-type': 'multipart/form-data'
       }
     })
 
     console.log(result.data);
+
+    if(result.data.success){
+        const menuItem = {
+        name: itemInfo.name,
+        price: parseFloat(itemInfo.price),
+        category: itemInfo.category,
+        recipe: itemInfo.recipe,
+        image: result.data.data.display_url
+      }
+      console.log(menuItem);
+
+        const menuResponse = await axiosPublic.post("/menu", menuItem)
+
+      console.log(menuResponse.data);
+      
+      if(menuResponse.data.insertedId){
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Item has been saved",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        reset()
+      }
+
+      
+    }
+    // if(result.data.success){
+    //   //post item in menu
+
+    //   const menuItem = {
+    //     name: data.name,
+    //     price: parseFloat(data.price),
+    //     category: data.category,
+    //     recipe: data.recipe,
+    //     image: result.data.data.display_url
+    //   }
+
+    //   const menuResponse = await axiosPublic.post("/menu", menuItem)
+
+    //   console.log(menuResponse.data);
+      
+    //   if(menuResponse.data.insertedId){
+    //     Swal.fire({
+    //       position: "top-end",
+    //       icon: "success",
+    //       title: "Item has been saved",
+    //       showConfirmButton: false,
+    //       timer: 1500
+    //     });
+    //     reset()
+    //   }
+
+    // }
     
 
   };

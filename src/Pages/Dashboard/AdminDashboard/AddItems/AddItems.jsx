@@ -51,7 +51,7 @@ const AddItems = () => {
       }
       console.log(menuItem);
 
-        const menuResponse = await axiosPublic.post("/menu", menuItem)
+        const menuResponse = await axiosSecure.post("/menu", menuItem)
 
       console.log(menuResponse.data);
       
@@ -68,33 +68,6 @@ const AddItems = () => {
 
       
     }
-    // if(result.data.success){
-    //   //post item in menu
-
-    //   const menuItem = {
-    //     name: data.name,
-    //     price: parseFloat(data.price),
-    //     category: data.category,
-    //     recipe: data.recipe,
-    //     image: result.data.data.display_url
-    //   }
-
-    //   const menuResponse = await axiosPublic.post("/menu", menuItem)
-
-    //   console.log(menuResponse.data);
-      
-    //   if(menuResponse.data.insertedId){
-    //     Swal.fire({
-    //       position: "top-end",
-    //       icon: "success",
-    //       title: "Item has been saved",
-    //       showConfirmButton: false,
-    //       timer: 1500
-    //     });
-    //     reset()
-    //   }
-
-    // }
     
 
   };

@@ -5,13 +5,15 @@ import { getAuth } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// console.log(import.meta.env.VITE_IMAGE_HOISTING_KEY);
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDfGylBrsbByp55hd0zuUWT7ouD646EDNI",
-  authDomain: "cafeteria-management-ad6db.firebaseapp.com",
-  projectId: "cafeteria-management-ad6db",
-  storageBucket: "cafeteria-management-ad6db.appspot.com",
-  messagingSenderId: "190786612709",
-  appId: "1:190786612709:web:44a9c8f7f425747d9e130c"
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID
 };
 
 // Initialize Firebase
